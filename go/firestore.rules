@@ -1,0 +1,20 @@
+service cloud.firestore {
+  match /databases/{database}/documents {
+    function isOneOf(roles) {
+      return exists(/databases/$(database)/documents/users/$(request.auth.uid)) && get(/databases/$(database)/documents/users/$(request.auth.uid)).data.role in roles
+    }
+
+    function isAuthenticated() {
+      return request.auth != null && request.auth.uid != ""
+    }
+
+  	match /go/{document} {
+    	allow read;
+      allow write: if isAuthenticated() && isOneOf(["admin"])
+    }
+
+    match /{document=**} {
+      allow read, write: if false;
+    }
+  }
+}
