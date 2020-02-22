@@ -7,4 +7,6 @@ Self-contained services deployed to AWS Lambda, Firebase, or Google Cloud Functi
   - deployed on Firebase
 
 ## Functions being Developed
-- **None right now**
+- [drone](/drone)
+  - webhook for a Drone CI instance
+  - deployed on Firebase
